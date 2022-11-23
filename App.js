@@ -14,13 +14,24 @@ export default function App() {
       ...prevTodos,
       {
         id: Date.now().toString(),
-        title: title
+        title: title,
+        checked: false
       }
     ]))
   }
 
   const deleteTodo = id => {
     setTodos(todos.filter(todo => todo.id !== id))
+  }
+
+  const checkTodo = id => {
+    const index = todos.findIndex(todo => todo.id === id)
+    setTodos(prevTodos => {
+      prevTodos[index].checked = !prevTodos[index].checked
+      return(
+        [...prevTodos]
+      )
+    })
   }
 
   return (
@@ -35,6 +46,7 @@ export default function App() {
                 todo={todo}
                 key={todo.id}
                 onDelete={deleteTodo}
+                onCheck={checkTodo}
               />
             ))
             : <EmptyList />

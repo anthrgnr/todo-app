@@ -27,7 +27,7 @@ export const AddTodo = ({ onAdd }) => {
                 style={styles.button}
                 onPress={pressHandler}
                 title='Add todo'
-                color='#274ef1'
+                color='#84A3BC'
                 disabled={!value.trim()}
             />
         </View>
