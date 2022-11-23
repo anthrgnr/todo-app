@@ -28,7 +28,7 @@ export default function App() {
     const index = todos.findIndex(todo => todo.id === id)
     setTodos(prevTodos => {
       prevTodos[index].checked = !prevTodos[index].checked
-      return(
+      return (
         [...prevTodos]
       )
     })
@@ -41,14 +41,15 @@ export default function App() {
         <AddTodo onAdd={addTodo} />
         {
           todos.length
-            ? todos.map(todo => (
-              <Todo
-                todo={todo}
-                key={todo.id}
-                onDelete={deleteTodo}
-                onCheck={checkTodo}
-              />
-            ))
+            ? todos.sort(todo => todo.checked)
+              .map(todo => (
+                <Todo
+                  todo={todo}
+                  key={todo.id}
+                  onDelete={deleteTodo}
+                  onCheck={checkTodo}
+                />
+              ))
             : <EmptyList />
         }
       </View>

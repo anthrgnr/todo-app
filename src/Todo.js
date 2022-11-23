@@ -3,29 +3,34 @@ import { CheckBox, View, Text, StyleSheet } from 'react-native'
 import { IconButton } from 'react-native-paper'
 
 export const Todo = ({ todo, onDelete, onCheck }) => {
-    const checkHandler = () => {
-        onCheck(todo.id)
-    }
-
-    const deleteHandler = () => {
-        onDelete(todo.id)
+    const actionHandler = actionName => () => {
+        if (actionName === 'check') onCheck(todo.id)
+        else if (actionName === 'delete') onDelete(todo.id)
+        else return
     }
 
     return (
-        <View style={styles.todo}>
+        <View style={todo.checked
+            ? { ...styles.todo, ...styles.todoChecked }
+            : styles.todo}>
             <View style={styles.checkboxWrapper}>
                 <CheckBox
                     style={styles.checkbox}
-                    onValueChange={checkHandler}
+                    onValueChange={actionHandler('check')}
                     value={todo.checked}
                 />
-                <Text style={styles.title}>{todo.title}</Text>
+                <Text style={todo.checked
+                    ? { ...styles.title, ...styles.titleChecked }
+                    : styles.title}
+                >
+                    {todo.title}
+                </Text>
             </View>
             <IconButton
                 icon='trash-can-outline'
                 size={20}
                 color='#444'
-                onPress={deleteHandler}
+                onPress={actionHandler('delete')}
             />
         </View>
     )
@@ -42,6 +47,9 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         backgroundColor: '#fff'
     },
+    todoChecked: {
+        opacity: 0.66
+    },
     checkboxWrapper: {
         flexDirection: 'row',
         alignItems: 'center'
@@ -53,5 +61,8 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '300',
         color: '#444'
+    },
+    titleChecked: {
+        textDecorationLine: 'line-through'
     }
 })
