@@ -1,5 +1,6 @@
 import React from 'react'
-import { CheckBox, View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
+import Checkbox from 'expo-checkbox'
 import { IconButton } from 'react-native-paper'
 
 export const Todo = ({ todo, onDelete, onCheck }) => {
@@ -10,19 +11,15 @@ export const Todo = ({ todo, onDelete, onCheck }) => {
     }
 
     return (
-        <View style={todo.checked
-            ? { ...styles.todo, ...styles.todoChecked }
-            : styles.todo}>
+        <View style={[styles.todo, todo.checked && styles.todoChecked]}>
             <View style={styles.checkboxWrapper}>
-                <CheckBox
+                <Checkbox
                     style={styles.checkbox}
                     onValueChange={actionHandler('check')}
                     value={todo.checked}
+                    color='#444'
                 />
-                <Text style={todo.checked
-                    ? { ...styles.title, ...styles.titleChecked }
-                    : styles.title}
-                >
+                <Text style={[styles.title, todo.checked && styles.titleChecked]}>
                     {todo.title}
                 </Text>
             </View>
